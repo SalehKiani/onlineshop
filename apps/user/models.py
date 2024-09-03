@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from apps.utils.OTP import generate_otp
 
 class CustomUser(AbstractUser):
     username = models.CharField(max_length=50, unique=True)
@@ -22,7 +21,7 @@ class CustomUser(AbstractUser):
 
 class OTP(models.Model):
     user = models.ForeignKey(CustomUser, related_name='otps', on_delete=models.CASCADE)
-    otp = models.CharField(max_length=6, default=generate_otp)
+    otp = models.CharField(max_length=6)
     expiry = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
 

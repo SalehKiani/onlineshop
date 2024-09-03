@@ -1,6 +1,6 @@
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
-from apps.shop.models import OTP
+from apps.user.models import OTP
 import random
 
 

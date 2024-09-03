@@ -31,14 +31,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'shop.apps.ShopConfig',
+    'apps.shop.apps.ShopConfig',
     'rest_framework',
+    'apps.user.apps.UserConfig'
+
 ]
 
 MIDDLEWARE = [
@@ -51,9 +53,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-AUTH_USER_MODEL = 'shop.CustomUser'
+AUTH_USER_MODEL = 'user.CustomUser'
 
-ROOT_URLCONF = 'onlineshop.configs.urls'
+ROOT_URLCONF = 'configs.urls'
 
 TEMPLATES = [
     {
