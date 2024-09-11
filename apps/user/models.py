@@ -1,26 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from apps.utils.validators import validate_phone_number
 
-class CustomUser(AbstractUser):
-    username = models.CharField(max_length=50, unique=True)
-    email = models.EmailField(unique=True, null=True, blank=True)
-    phone_number = models.CharField(max_length=15, unique=True, null=True, blank=True)
-    first_name = models.CharField(max_length=30, blank=True)
-    last_name = models.CharField(max_length=30, blank=True)
-    date_joined = models.DateTimeField(auto_now_add=True)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
+class User(AbstractUser):
+    email = models.CharField(max_length=100, unique=True, null=True, blank=True)
+    phone_number = models.IntegerField(unique=True, null=True, blank=True, validators=[validate_phone_number])
 
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email' or 'phone_number']
+    class Meta:
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
 
-    def __str__(self):
-        return self.username
+        ordering = ['-date_joined']
 
 
 
 class OTP(models.Model):
-    user = models.ForeignKey(CustomUser, related_name='otps', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='otps', on_delete=models.CASCADE)
     otp = models.CharField(max_length=6)
     expiry = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)

@@ -2,8 +2,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import ProductSerializer
 from .selectors import selectors
-from apps.utils.OTP import generate_otp, verify_otp
-from .models import CustomUser
+from apps.user.services.OTP import generate_otp, verify_otp
+from .models import User
 
 class ProductListAPIView(APIView):
 
@@ -24,7 +24,7 @@ class OTPView(APIView):
     @staticmethod
     def post(request):
         phone_number = request.data.get('phone_number')
-        user = CustomUser.objects.get(phone_number=phone_number)
+        user = User.objects.get(phone_number=phone_number)
         otp = generate_otp(user)
         # Send the OTP via SMS or email
         return Response({'message': 'OTP sent successfully'})
@@ -36,7 +36,7 @@ class VerifyOTPView(APIView):
     def post(request):
         phone_number = request.data.get('phone_number')
         otp = request.data.get('otp')
-        user = CustomUser.objects.get(phone_number=phone_number)
+        user = User.objects.get(phone_number=phone_number)
         if verify_otp(user, otp):
             return Response({'message': 'OTP verified successfully'})
         else:

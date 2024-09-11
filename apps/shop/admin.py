@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
-from.models import Product, Category, City, Address, Order, OrderItem, Review, CustomUser
+from .models import User
+from.models import Product, Category, City, Address, Order, OrderItem, Review, User
 
-admin.site.register(CustomUser, UserAdmin)
+admin.site.register(User, UserAdmin)
 
 admin.site.register(Product)
 admin.site.register(Category)

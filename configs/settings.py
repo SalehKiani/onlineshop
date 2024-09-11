@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.shop.apps.ShopConfig',
     'rest_framework',
-    'apps.user.apps.UserConfig'
-
+    'apps.user.apps.UserConfig',
+    'rest_auth'
 ]
 
 MIDDLEWARE = [
@@ -53,7 +53,18 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-AUTH_USER_MODEL = 'user.CustomUser'
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+REST_AUTH = {
+    'LOGIN_URL': '/api/login/',
+    'LOGOUT_URL': '/api/logout/',
+}
+
+AUTH_USER_MODEL = 'user.User'
 
 ROOT_URLCONF = 'configs.urls'
 

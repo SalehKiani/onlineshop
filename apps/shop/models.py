@@ -1,5 +1,5 @@
 from django.db import models
-from apps.user.models import CustomUser
+from apps.user.models import User
 
 
 class Category(models.Model):
@@ -28,7 +28,7 @@ class Product(models.Model):
 
 
 class Address(models.Model):
-    user = models.ForeignKey(CustomUser, related_name='addresses', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='addresses', on_delete=models.CASCADE)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     address_line = models.CharField(max_length=255)
     postal_code = models.CharField(max_length=20)
@@ -39,7 +39,7 @@ class Address(models.Model):
 
 
 class Order(models.Model):
-    user = models.ForeignKey(CustomUser, related_name='orders', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='orders', on_delete=models.CASCADE)
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -60,7 +60,7 @@ class OrderItem(models.Model):
 
 class Review(models.Model):
     product = models.ForeignKey(Product, related_name='reviews', on_delete=models.CASCADE)
-    user = models.ForeignKey(CustomUser, related_name='reviews', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='reviews', on_delete=models.CASCADE)
     RATING_CHOICES = [(i, str(i)) for i in range(1, 6)]
     rating = models.IntegerField(choices=RATING_CHOICES, default=1)
     comment = models.TextField()
